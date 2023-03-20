@@ -1,21 +1,19 @@
-// This file is not to be modified. Please ignore this.
-// We will understand all of this later in the course.
-// DO NOT MODIFY THIS FILE
+function calculateMinCost() {
+  //your code here
+   var inputData = document.querySelector("#rope-lengths").value;
+  var inputArr = inputData.split(",");
 
-const express = require('express');
-const path = require('path');
-
-const app = express();
-
-app.use(express.static(__dirname))
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/main.html'));
-});
-//your code here
-app.post('/add', (req, res) => {
-  const {a,b} = req.body;
-  res.status(200).send(a+b);
-  // res.sendFile(path.join(__dirname + '/main.html'));
-});
-module.exports = app;
+  for (var i = 0; i < inputArr.length; i++) {
+    inputArr[i] = Number(inputArr[i]);
+  }
+  var cost = 0;
+	inputArr.sort(function (a,b) {return a-b;});
+  while (inputArr.length > 1) {
+    var newRope = inputArr[0] + inputArr[1];
+    cost += newRope;
+    inputArr.splice(0, 2);
+    inputArr.push(newRope);
+	  inputArr.sort(function (a,b) {return a-b;});
+  }
+  document.querySelector("#result").textContent = cost;   
+}  
